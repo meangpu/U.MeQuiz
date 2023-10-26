@@ -40,8 +40,8 @@ namespace Meangpu.QuizExam
         {
             _data = exam;
             SetupQuizPool();
-            SetupUI(_data);
             _score = 0;
+            SetupUI(_data);
         }
 
         private void UpdateAnswerCorrect(bool isAnswerCorrect)
@@ -87,6 +87,7 @@ namespace Meangpu.QuizExam
             if (_uiSlider == null) return;
             _uiSlider.value = 0;
             _uiSlider.maxValue = _quizData.QuestionList.Count;
+            _scoreNow.SetText("0");
             _scoreMax.SetText($"/{_quizData.QuestionList.Count}");
         }
 

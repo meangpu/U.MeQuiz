@@ -16,5 +16,5 @@ MonoBehaviour:
   DisableColor: {r: 0.7529412, g: 0.22352941, b: 0.16862746, a: 1}
   EnableImg: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   DisableImg: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  EnableText: Correct
-  DisableText: Wrong
+  EnableText: CORRECT
+  DisableText: WRONG

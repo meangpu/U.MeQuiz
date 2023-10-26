@@ -265,8 +265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _btn: {fileID: 0}
-  _statusImg: {fileID: 819444569720177787}
-  _statusImgColorTarget: {fileID: 819444569720177787}
+  _statusImg: {fileID: 5442185689336662089}
+  _statusImgColorTarget: {fileID: 5442185689336662089}
   _statusText: {fileID: 0}
   _statusData: {fileID: 11400000, guid: b730bcde5a6fd364aa30f04ed2f1fb40, type: 2}
   _nowStatus: 0
