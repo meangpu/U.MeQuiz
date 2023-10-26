@@ -68,7 +68,7 @@ namespace Meangpu.QuizExam
             switch (state)
             {
                 case QuizState.Playing:
-                    StartNewQuiz();
+                    StartNextQuiz();
                     break;
             }
         }
@@ -117,7 +117,7 @@ namespace Meangpu.QuizExam
         }
 
         [Button]
-        public void StartNewQuiz()
+        public void StartNextQuiz()
         {
             if (_quizList.Count == 0)
             {

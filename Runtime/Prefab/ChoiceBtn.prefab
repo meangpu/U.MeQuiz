@@ -201,7 +201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5442185689336662089}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5477686709273468628}
+        m_TargetAssemblyTypeName: Meangpu.QuizExam.QuizChoice, Meangpu.quiz
+        m_MethodName: SelectThisChoice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8951948824679751633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,7 +269,7 @@ MonoBehaviour:
   _statusImgColorTarget: {fileID: 819444569720177787}
   _statusText: {fileID: 0}
   _statusData: {fileID: 11400000, guid: b730bcde5a6fd364aa30f04ed2f1fb40, type: 2}
-  _nowStatus: 1
+  _nowStatus: 0
   _doSetVisualOnStart: 1
   _doSetButtonInteractable: 0
   _doSetImage: 1

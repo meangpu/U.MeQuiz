@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8f1c68f14134d47919bbb3894ac882, type: 3}
   m_Name: RedBlack
   m_EditorClassIdentifier: 
-  EnableColor: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
-  DisableColor: {r: 0.7529412, g: 0.22352941, b: 0.16862746, a: 1}
+  EnableColor: {r: 0.7529412, g: 0.22352941, b: 0.16862746, a: 1}
+  DisableColor: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
   EnableImg: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   DisableImg: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   EnableText: 
