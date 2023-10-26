@@ -124,6 +124,7 @@ namespace Meangpu.QuizExam
                 QuizStateManager.Instance.UpdateGameState(QuizState.Waiting);
                 return;
             }
+
             ActionQuiz.OnStartQuiz?.Invoke(GetNextQuiz());
         }
     }

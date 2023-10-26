@@ -14,10 +14,22 @@ namespace Meangpu.QuizExam
         void OnEnable()
         {
             QuizStateManager.OnUpdateGameState += UpdateState;
+            ActionQuiz.OnStartQuiz += DisableCorrectWrong;
         }
         void OnDisable()
         {
             QuizStateManager.OnUpdateGameState -= UpdateState;
+            ActionQuiz.OnStartQuiz -= DisableCorrectWrong;
+        }
+
+        private void DisableCorrectWrong(QuizObject @object)
+        {
+            _choice.SetActive(true);
+            _question.SetActive(true);
+            _startBtn.SetActive(false);
+            _answerCorrectWrong.SetActive(false);
+            _nextBtn.SetActive(false);
+            _progressUI.SetActive(true);
         }
 
         private void UpdateState(QuizState state)
