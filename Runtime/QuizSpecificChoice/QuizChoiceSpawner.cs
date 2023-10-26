@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Meangpu.QuizExam
 {
-    public class QuizSpawner : MonoBehaviour
+    public class QuizChoiceSpawner : MonoBehaviour
     {
         [SerializeField] TMP_Text _questionTxt;
         [SerializeField] List<QuizChoice> _answerTxt;

@@ -4,7 +4,6 @@ using Meangpu.Audio;
 using Meangpu.Util;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 namespace Meangpu.QuizExam
@@ -77,16 +76,25 @@ namespace Meangpu.QuizExam
         private void SetupQuizPool() => _quizList = new(_data.QuestionList);
         void Start() => SetupQuizPool();
 
-        void UpdateNowScoreUI() => _scoreNow.SetText(_score.ToString());
+        void UpdateNowScoreUI()
+        {
+            if (_scoreNow == null) return;
+            _scoreNow.SetText(_score.ToString());
+        }
 
         void SetupUI(SOQuizExam _quizData)
         {
+            if (_uiSlider == null) return;
             _uiSlider.value = 0;
             _uiSlider.maxValue = _quizData.QuestionList.Count;
             _scoreMax.SetText($"/{_quizData.QuestionList.Count}");
         }
 
-        void UpdateProgressUI() => _uiSlider.value = _data.QuestionList.Count - _quizList.Count;
+        void UpdateProgressUI()
+        {
+            if (_uiSlider == null) return;
+            _uiSlider.value = _data.QuestionList.Count - _quizList.Count;
+        }
 
         public QuizObject GetRandomQuiz()
         {
