@@ -1,6 +1,7 @@
 using System;
 using EasyButtons;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Meangpu.QuizExam
 {
@@ -8,6 +9,8 @@ namespace Meangpu.QuizExam
     {
         public static QuizStateManager Instance;
         public static Action<QuizState> OnUpdateGameState;
+        [Tooltip("Hook mmf player here")]
+        public UnityEvent OnUpdateGameStateEvent;
         public QuizState State;
 
         private void Awake() => Instance = this;
@@ -19,6 +22,7 @@ namespace Meangpu.QuizExam
         [Button]
         public void UpdateGameState(QuizState newState)
         {
+            Debug.Log($"{newState}");
             State = newState;
             OnUpdateGameState?.Invoke(newState);
         }

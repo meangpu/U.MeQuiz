@@ -74,7 +74,6 @@ namespace Meangpu.QuizExam
         }
 
         private void SetupQuizPool() => _quizList = new(_data.QuestionList);
-        void Start() => SetupQuizPool();
 
         void UpdateNowScoreUI()
         {
