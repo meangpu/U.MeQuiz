@@ -22,7 +22,6 @@ namespace Meangpu.QuizExam
         [Button]
         public void UpdateGameState(QuizState newState)
         {
-            Debug.Log($"{newState}");
             State = newState;
             OnUpdateGameState?.Invoke(newState);
         }

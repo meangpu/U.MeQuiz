@@ -32,8 +32,8 @@ namespace Meangpu.QuizExam
         void OnDisable()
         {
             QuizStateManager.OnUpdateGameState -= OnGameUpdateState;
-            ActionQuiz.OnAnswerQuiz += UpdateAnswerCorrect;
-            ActionQuiz.OnChooseQuizGroup += UpdateQuizGroup;
+            ActionQuiz.OnAnswerQuiz -= UpdateAnswerCorrect;
+            ActionQuiz.OnChooseQuizGroup -= UpdateQuizGroup;
         }
 
         private void UpdateQuizGroup(SOQuizExam exam)
