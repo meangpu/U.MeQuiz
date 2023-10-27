@@ -25,14 +25,14 @@ namespace Meangpu.QuizExam
         void OnEnable()
         {
             QuizStateManager.OnUpdateGameState += OnGameUpdateState;
-            ActionQuiz.OnAnswerQuiz += UpdateAnswerCorrect;
+            ActionQuiz.OnAnswerCorrect += UpdateAnswerCorrect;
             ActionQuiz.OnChooseQuizGroup += UpdateQuizGroup;
         }
 
         void OnDisable()
         {
             QuizStateManager.OnUpdateGameState -= OnGameUpdateState;
-            ActionQuiz.OnAnswerQuiz -= UpdateAnswerCorrect;
+            ActionQuiz.OnAnswerCorrect -= UpdateAnswerCorrect;
             ActionQuiz.OnChooseQuizGroup -= UpdateQuizGroup;
         }
 

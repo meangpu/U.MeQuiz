@@ -11,13 +11,13 @@ namespace Meangpu.QuizExam
     {
         [SerializeField] TMP_Text _txt;
         [SerializeField] ButtonUIStatus _status;
-        [SerializeField] Image _imageYouChoose;
+        [SerializeField] Image _imageShowYouChoose;
         [SerializeField] Button _btn;
         [SerializeField] Color _chooseColor;
 
         public bool _isCorrectAns;
-        void OnEnable() => ActionQuiz.OnAnswerQuiz += OnQuizAnswer;
-        void OnDisable() => ActionQuiz.OnAnswerQuiz -= OnQuizAnswer;
+        void OnEnable() => ActionQuiz.OnAnswerCorrect += OnQuizAnswer;
+        void OnDisable() => ActionQuiz.OnAnswerCorrect -= OnQuizAnswer;
 
         private void OnQuizAnswer(bool isCorrect)
         {
@@ -45,9 +45,9 @@ namespace Meangpu.QuizExam
         [Button]
         public void SelectThisChoice()
         {
-            ActionQuiz.OnAnswerQuiz?.Invoke(_isCorrectAns);
+            ActionQuiz.OnAnswerCorrect?.Invoke(_isCorrectAns);
             QuizStateManager.Instance.UpdateGameState(QuizState.Finish);
-            _imageYouChoose.color = _chooseColor;
+            _imageShowYouChoose.color = _chooseColor;
         }
     }
 }

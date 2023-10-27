@@ -2,24 +2,23 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
-using Meangpu.QuizExam;
 using EasyButtons;
 using Meangpu.Util;
 
-namespace Meangpu.QuizPool
+namespace Meangpu.QuizExam
 {
     public class QuizPoolChoiceSpawner : MonoBehaviour
     {
         [SerializeField] TMP_Text _questionTxt;
-        [SerializeField] List<QuizPoolChoice> _answerTxt;
+        [SerializeField] List<QuizPoolChoiceTemplate> _answerTxt;
 
         void OnEnable()
         {
-            QuizPoolAction.OnStartQuiz += SpawnQuizObject;
+            ActionQuiz.OnStartQuizPool += SpawnQuizObject;
         }
         void OnDisable()
         {
-            QuizPoolAction.OnStartQuiz -= SpawnQuizObject;
+            ActionQuiz.OnStartQuizPool -= SpawnQuizObject;
         }
 
         [Button]
@@ -41,8 +40,9 @@ namespace Meangpu.QuizPool
                 {
                     _answerTxt[i].SetIsCorrectAnswer(false);
                 }
-                _answerTxt[i].DisplaySceneBySOData(shuffleChoiceList[i]);
-                _answerTxt[i].SetText(shuffleChoiceList[i].Names[0]);
+                _answerTxt[i].ClearDisplayCorrect();
+                _answerTxt[i].SetText(shuffleChoiceList[i].name);
+                _answerTxt[i].DisplayData(shuffleChoiceList[i]);
             }
         }
     }

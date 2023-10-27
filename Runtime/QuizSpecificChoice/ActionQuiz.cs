@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Meangpu.QuizExam
 {
@@ -6,6 +7,7 @@ namespace Meangpu.QuizExam
     {
         public static Action<SOQuizExam> OnChooseQuizGroup;
         public static Action<QuizObject> OnStartQuiz;
-        public static Action<bool> OnAnswerQuiz;
+        public static Action<SOQuizPoolItem, List<SOQuizPoolItem>> OnStartQuizPool;
+        public static Action<bool> OnAnswerCorrect;
     }
 }

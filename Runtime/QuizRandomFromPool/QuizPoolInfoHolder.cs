@@ -3,7 +3,7 @@ using Meangpu.Util;
 using System.Collections.Generic;
 using Meangpu.Audio;
 
-namespace Meangpu.QuizPool
+namespace Meangpu.QuizExam
 {
     public class QuizPoolInfoHolder : MonoBehaviour
     {
@@ -21,36 +21,35 @@ namespace Meangpu.QuizPool
 
         void OnEnable()
         {
-            QuizPoolAction.OnAnswerCorrect += UpdateAnswerCorrect;
-            // LocationQuizStateManager.OnUpdateGameState += OnUpdateGameState;
+            ActionQuiz.OnAnswerCorrect += UpdateAnswerCorrect;
+            QuizStateManager.OnUpdateGameState += OnUpdateGameState;
         }
 
         void OnDisable()
         {
-            QuizPoolAction.OnAnswerCorrect -= UpdateAnswerCorrect;
-            // LocationQuizStateManager.OnUpdateGameState -= OnUpdateGameState;
+            ActionQuiz.OnAnswerCorrect -= UpdateAnswerCorrect;
+            QuizStateManager.OnUpdateGameState -= OnUpdateGameState;
         }
 
-        // private void OnUpdateGameState(LocationQuizState state)
-        // {
-        //     switch (state)
-        //     {
-        //         case LocationQuizState.Playing:
-        //             StartQuiz();
-        //             break;
-        //         case LocationQuizState.Finish:
-        //             break;
-        //     }
-        // }
+        private void OnUpdateGameState(QuizState state)
+        {
+            switch (state)
+            {
+                case QuizState.Playing:
+                    StartQuiz();
+                    break;
+                case QuizState.Finish:
+                    break;
+            }
+        }
 
         public void StartQuiz()
         {
             _startQuizSound?.Play();
             SOQuizPoolItem question = GetRandomQuestion();
             List<SOQuizPoolItem> choiceList = GetChoiceList(question);
-            // ActionQuizLocation.OnStartQuiz?.Invoke(question, choiceList);
+            ActionQuiz.OnStartQuizPool?.Invoke(question, choiceList);
         }
-
 
         private void UpdateAnswerCorrect(bool isAnswerCorrect)
         {
