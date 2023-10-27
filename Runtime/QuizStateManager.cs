@@ -24,6 +24,7 @@ namespace Meangpu.QuizExam
         {
             State = newState;
             OnUpdateGameState?.Invoke(newState);
+            OnUpdateGameStateEvent?.Invoke();
         }
     }
 
