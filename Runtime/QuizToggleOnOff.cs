@@ -22,14 +22,20 @@ namespace Meangpu.QuizExam
             ActionQuiz.OnStartQuiz -= DisableCorrectWrong;
         }
 
+        void SetActive(GameObject obj, bool state)
+        {
+            if (obj == null) return;
+            obj.SetActive(state);
+        }
+
         private void DisableCorrectWrong(QuizObject @object)
         {
-            _choice.SetActive(true);
-            _question.SetActive(true);
-            _startBtn.SetActive(false);
-            _answerCorrectWrong.SetActive(false);
-            _nextBtn.SetActive(false);
-            _progressUI.SetActive(true);
+            SetActive(_choice, true);
+            SetActive(_question, true);
+            SetActive(_startBtn, false);
+            SetActive(_answerCorrectWrong, false);
+            SetActive(_nextBtn, false);
+            SetActive(_progressUI, true);
         }
 
         private void UpdateState(QuizState state)
@@ -37,28 +43,28 @@ namespace Meangpu.QuizExam
             switch (state)
             {
                 case QuizState.Waiting:
-                    _choice.SetActive(false);
-                    _question.SetActive(false);
-                    _startBtn.SetActive(true);
-                    _answerCorrectWrong.SetActive(false);
-                    _nextBtn.SetActive(false);
-                    _progressUI.SetActive(false);
+                    SetActive(_choice, false);
+                    SetActive(_question, false);
+                    SetActive(_startBtn, true);
+                    SetActive(_answerCorrectWrong, false);
+                    SetActive(_nextBtn, false);
+                    SetActive(_progressUI, false);
                     break;
                 case QuizState.Playing:
-                    _choice.SetActive(true);
-                    _question.SetActive(true);
-                    _startBtn.SetActive(false);
-                    _answerCorrectWrong.SetActive(false);
-                    _nextBtn.SetActive(false);
-                    _progressUI.SetActive(true);
+                    SetActive(_choice, true);
+                    SetActive(_question, true);
+                    SetActive(_startBtn, false);
+                    SetActive(_answerCorrectWrong, false);
+                    SetActive(_nextBtn, false);
+                    SetActive(_progressUI, true);
                     break;
                 case QuizState.Finish:
-                    _choice.SetActive(true);
-                    _question.SetActive(true);
-                    _startBtn.SetActive(false);
-                    _answerCorrectWrong.SetActive(true);
-                    _nextBtn.SetActive(true);
-                    _progressUI.SetActive(true);
+                    SetActive(_choice, true);
+                    SetActive(_question, true);
+                    SetActive(_startBtn, false);
+                    SetActive(_answerCorrectWrong, true);
+                    SetActive(_nextBtn, true);
+                    SetActive(_progressUI, true);
                     break;
                 default:
                     break;
