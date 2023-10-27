@@ -7,7 +7,7 @@ namespace Meangpu.QuizExam
         [SerializeField] GameObject _question;
         [SerializeField] GameObject _choice;
         [SerializeField] GameObject _startBtn;
-        [SerializeField] GameObject _answerCorrectWrong;
+        [SerializeField] GameObject _answerCorrectWrongStatus;
         [SerializeField] GameObject _nextBtn;
         [SerializeField] GameObject _progressUI;
 
@@ -33,7 +33,7 @@ namespace Meangpu.QuizExam
             SetActive(_choice, true);
             SetActive(_question, true);
             SetActive(_startBtn, false);
-            SetActive(_answerCorrectWrong, false);
+            SetActive(_answerCorrectWrongStatus, false);
             SetActive(_nextBtn, false);
             SetActive(_progressUI, true);
         }
@@ -46,7 +46,7 @@ namespace Meangpu.QuizExam
                     SetActive(_choice, false);
                     SetActive(_question, false);
                     SetActive(_startBtn, true);
-                    SetActive(_answerCorrectWrong, false);
+                    SetActive(_answerCorrectWrongStatus, false);
                     SetActive(_nextBtn, false);
                     SetActive(_progressUI, false);
                     break;
@@ -54,7 +54,7 @@ namespace Meangpu.QuizExam
                     SetActive(_choice, true);
                     SetActive(_question, true);
                     SetActive(_startBtn, false);
-                    SetActive(_answerCorrectWrong, false);
+                    SetActive(_answerCorrectWrongStatus, false);
                     SetActive(_nextBtn, false);
                     SetActive(_progressUI, true);
                     break;
@@ -62,7 +62,7 @@ namespace Meangpu.QuizExam
                     SetActive(_choice, true);
                     SetActive(_question, true);
                     SetActive(_startBtn, false);
-                    SetActive(_answerCorrectWrong, true);
+                    SetActive(_answerCorrectWrongStatus, true);
                     SetActive(_nextBtn, true);
                     SetActive(_progressUI, true);
                     break;
