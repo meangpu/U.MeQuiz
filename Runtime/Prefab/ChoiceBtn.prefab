@@ -201,19 +201,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5442185689336662089}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5477686709273468628}
-        m_TargetAssemblyTypeName: Meangpu.QuizExam.QuizChoice, Meangpu.quiz
-        m_MethodName: SelectThisChoice
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &8951948824679751633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _txt: {fileID: 1779785010872719011}
   _status: {fileID: 2372747312987234489}
-  _imageYouChoose: {fileID: 5442185689336662089}
+  _imageShowYouChoose: {fileID: 5442185689336662089}
   _btn: {fileID: 1722396137959024496}
   _chooseColor: {r: 0.20392157, g: 0.59607846, b: 0.85882354, a: 1}
   _isCorrectAns: 0

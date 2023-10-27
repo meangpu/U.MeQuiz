@@ -31,9 +31,8 @@ namespace Meangpu.QuizExam
 
             for (var i = 0; i < shuffleChoiceList.Count; i++)
             {
-                Debug.Log($"question: {question} / now:{shuffleChoiceList[i]}");
                 _answerTxt[i].ClearDisplayCorrect();
-                if (shuffleChoiceList[i] == question)
+                if (shuffleChoiceList[i].Equals(question))
                 {
                     _answerTxt[i].SetIsCorrectAnswer(true);
                 }

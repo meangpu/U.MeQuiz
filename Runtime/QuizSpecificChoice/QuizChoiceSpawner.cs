@@ -9,6 +9,8 @@ namespace Meangpu.QuizExam
     {
         [SerializeField] TMP_Text _questionTxt;
         [SerializeField] List<QuizChoice> _answerTxt;
+        [SerializeField] Transform _choiceParent;
+        [SerializeField] QuizChoice _quizChoiceTemplate;
 
         void OnEnable()
         {
@@ -19,15 +21,34 @@ namespace Meangpu.QuizExam
             ActionQuiz.OnStartQuiz -= SpawnQuizObject;
         }
 
+        public void DisableAllChoiceBtn()
+        {
+            foreach (Transform child in _choiceParent) child.gameObject.SetActive(false);
+        }
+
+        public void SpawnChoiceToCount(int questionCount)
+        {
+            while (_answerTxt.Count < questionCount)
+            {
+                QuizChoice newChoice = Instantiate(_quizChoiceTemplate, _choiceParent);
+                _answerTxt.Add(newChoice);
+            }
+        }
+
         [Button]
         private void SpawnQuizObject(QuizObject quizObj)
         {
             _questionTxt.SetText(quizObj.Question);
+            DisableAllChoiceBtn();
+            SpawnChoiceToCount(quizObj.Answers.Count);
+
             for (var i = 0; i < quizObj.Answers.Count; i++)
             {
-                _answerTxt[i].SetText(quizObj.Answers[i].stringValue);
-                _answerTxt[i].SetIsCorrectAnswer(quizObj.Answers[i].boolValue);
-                _answerTxt[i].ClearDisplayCorrect();
+                QuizChoice nowChoice = _answerTxt[i];
+                nowChoice.gameObject.SetActive(true);
+                nowChoice.SetText(quizObj.Answers[i].stringValue);
+                nowChoice.SetIsCorrectAnswer(quizObj.Answers[i].boolValue);
+                nowChoice.ClearDisplayCorrect();
             }
         }
     }

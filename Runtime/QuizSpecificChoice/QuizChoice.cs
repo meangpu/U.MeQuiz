@@ -25,6 +25,11 @@ namespace Meangpu.QuizExam
             if (!isCorrect) DisplayIsAnswerCorrect();
         }
 
+        void Start()
+        {
+            _btn.onClick.AddListener(SelectThisChoice);
+        }
+
         public void SetText(string txt) => _txt.SetText(txt);
 
         public bool GetIsCorrectAnswer() => _isCorrectAns;
