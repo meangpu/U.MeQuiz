@@ -10,7 +10,10 @@ namespace Meangpu.QuizExam
     public class QuizPoolChoiceSpawner : MonoBehaviour
     {
         [SerializeField] TMP_Text _questionTxt;
-        [SerializeField] List<QuizPoolChoiceTemplate> _answerTxt;
+        [SerializeField] List<QuizPoolChoiceTemplate> _choice;
+
+        [SerializeField] Transform _choiceParent;
+        [SerializeField] QuizPoolChoiceTemplate _quizChoiceTemplatePrefab;
 
         void OnEnable()
         {
@@ -21,6 +24,20 @@ namespace Meangpu.QuizExam
             ActionQuiz.OnStartQuizPool -= SpawnQuizObject;
         }
 
+        public void DisableAllChoiceBtn()
+        {
+            foreach (Transform child in _choiceParent) child.gameObject.SetActive(false);
+        }
+
+        public void SpawnChoiceToCount(int questionCount)
+        {
+            while (_choice.Count < questionCount)
+            {
+                QuizPoolChoiceTemplate newChoice = Instantiate(_quizChoiceTemplatePrefab, _choiceParent);
+                _choice.Add(newChoice);
+            }
+        }
+
         [Button]
         private void SpawnQuizObject(SOQuizPoolItem question, List<SOQuizPoolItem> choice)
         {
@@ -29,19 +46,23 @@ namespace Meangpu.QuizExam
             List<SOQuizPoolItem> shuffleChoiceList = new(choice);
             ListOP.Shuffle(shuffleChoiceList);
 
+            SpawnChoiceToCount(choice.Count);
+            DisableAllChoiceBtn();
+
             for (var i = 0; i < shuffleChoiceList.Count; i++)
             {
-                _answerTxt[i].ClearDisplayCorrect();
+                _choice[i].ClearDisplayCorrect();
+                _choice[i].gameObject.SetActive(true);
                 if (shuffleChoiceList[i].Equals(question))
                 {
-                    _answerTxt[i].SetIsCorrectAnswer(true);
+                    _choice[i].SetIsCorrectAnswer(true);
                 }
                 else
                 {
-                    _answerTxt[i].SetIsCorrectAnswer(false);
+                    _choice[i].SetIsCorrectAnswer(false);
                 }
-                _answerTxt[i].SetText(shuffleChoiceList[i].name);
-                _answerTxt[i].DisplayData(shuffleChoiceList[i]);
+                _choice[i].SetText(shuffleChoiceList[i].name);
+                _choice[i].DisplayData(shuffleChoiceList[i]);
             }
         }
     }
