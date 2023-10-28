@@ -61,7 +61,7 @@ namespace Meangpu.QuizExam
                 {
                     _choice[i].SetIsCorrectAnswer(false);
                 }
-                _choice[i].SetText(shuffleChoiceList[i].name);
+                _choice[i].SetText(shuffleChoiceList[i].QuizName);
                 _choice[i].DisplayData(shuffleChoiceList[i]);
             }
         }
