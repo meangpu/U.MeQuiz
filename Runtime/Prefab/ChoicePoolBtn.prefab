@@ -339,6 +339,7 @@ MonoBehaviour:
   _imageShowYouChoose: {fileID: 5442185689336662089}
   _btn: {fileID: 1722396137959024496}
   _chooseColor: {r: 0.20392157, g: 0.59607846, b: 0.85882354, a: 1}
+  _OnFinishEvent: {fileID: 11400000, guid: 8d661da96e143c54eb9fc45f63d4dcad, type: 2}
   _isCorrectAns: 0
   _img: {fileID: 3243390925854865949}
 --- !u!1 &5306996013521417412

@@ -1,9 +1,9 @@
 using TMPro;
 using UnityEngine;
 using Meangpu.Util;
-using System;
 using UnityEngine.UI;
 using EasyButtons;
+using Meangpu.SOEvent;
 
 namespace Meangpu.QuizExam
 {
@@ -15,7 +15,11 @@ namespace Meangpu.QuizExam
         [SerializeField] Button _btn;
         [SerializeField] Color _chooseColor;
 
+        [Header("Event")]
+        [SerializeField] SOVoidEvent _OnFinishEvent;
+
         public bool _isCorrectAns;
+
         void OnEnable() => ActionQuiz.OnAnswerCorrect += OnQuizAnswer;
         void OnDisable() => ActionQuiz.OnAnswerCorrect -= OnQuizAnswer;
 
@@ -51,7 +55,7 @@ namespace Meangpu.QuizExam
         public void SelectThisChoice()
         {
             ActionQuiz.OnAnswerCorrect?.Invoke(_isCorrectAns);
-            QuizStateManager.Instance.UpdateGameState(QuizState.Finish);
+            _OnFinishEvent?.Raise();
             _imageShowYouChoose.color = _chooseColor;
         }
     }

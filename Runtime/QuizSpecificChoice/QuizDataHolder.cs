@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using EasyButtons;
 using Meangpu.Audio;
+using Meangpu.SOEvent;
 using Meangpu.Util;
 using TMPro;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Meangpu.QuizExam
 {
-    public class QuizDataHolder : MonoBehaviour
+    public class QuizDataHolder : MonoBehaviour, IGameEventListener<Void>
     {
         [Expandable][SerializeField] SOQuizExam _data;
         [ReadOnly][SerializeField] List<QuizObject> _quizList = new();
@@ -21,17 +22,22 @@ namespace Meangpu.QuizExam
         [SerializeField] TMP_Text _scoreNow;
         [SerializeField] TMP_Text _scoreMax;
         int _score;
+        [Header("Event")]
+        [SerializeField] SOVoidEvent _OnWaitEvent;
+        [SerializeField] SOVoidEvent _OnPlayingEvent;
+
+        public void OnEventRaised(Void data) => StartNextQuiz();
 
         void OnEnable()
         {
-            QuizStateManager.OnUpdateGameState += OnGameUpdateState;
+            _OnPlayingEvent.RegisterListener(this);
             ActionQuiz.OnAnswerCorrect += UpdateAnswerCorrect;
             ActionQuiz.OnChooseQuizGroup += UpdateQuizGroup;
         }
 
         void OnDisable()
         {
-            QuizStateManager.OnUpdateGameState -= OnGameUpdateState;
+            _OnPlayingEvent.UnregisterListener(this);
             ActionQuiz.OnAnswerCorrect -= UpdateAnswerCorrect;
             ActionQuiz.OnChooseQuizGroup -= UpdateQuizGroup;
         }
@@ -60,16 +66,6 @@ namespace Meangpu.QuizExam
                 _wrongSound?.PlayOneShot();
                 UpdateNowScoreUI();
                 UpdateProgressUI();
-            }
-        }
-
-        private void OnGameUpdateState(QuizState state)
-        {
-            switch (state)
-            {
-                case QuizState.Playing:
-                    StartNextQuiz();
-                    break;
             }
         }
 
@@ -107,24 +103,27 @@ namespace Meangpu.QuizExam
 
         public QuizObject GetNextQuiz()
         {
-            if (_quizList.Count == 0)
-            {
-                QuizStateManager.Instance.UpdateGameState(QuizState.Waiting);
-            }
+            IsQuizIsFinish();
+
             QuizObject nowObj = _quizList[0];
             _quizList.RemoveAt(0);
             return nowObj;
         }
 
-        [Button]
-        public void StartNextQuiz()
+        private bool IsQuizIsFinish()
         {
             if (_quizList.Count == 0)
             {
-                QuizStateManager.Instance.UpdateGameState(QuizState.Waiting);
-                return;
+                _OnWaitEvent?.Raise();
+                return true;
             }
+            return false;
+        }
 
+        [Button]
+        public void StartNextQuiz()
+        {
+            if (IsQuizIsFinish()) return;
             ActionQuiz.OnStartQuiz?.Invoke(GetNextQuiz());
         }
     }

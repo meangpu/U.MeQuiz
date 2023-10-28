@@ -2,10 +2,11 @@ using UnityEngine;
 using Meangpu.Util;
 using System.Collections.Generic;
 using Meangpu.Audio;
+using Meangpu.SOEvent;
 
 namespace Meangpu.QuizExam
 {
-    public class QuizPoolInfoHolder : MonoBehaviour
+    public class QuizPoolInfoHolder : MonoBehaviour, IGameEventListener<Void>
     {
         [SerializeField] List<SOQuizPoolItem> _quizQuestionGroup;
 
@@ -19,29 +20,22 @@ namespace Meangpu.QuizExam
         [SerializeField] SOSound _correctSound;
         [SerializeField] SOSound _wrongSound;
 
+        [Header("Event")]
+        [SerializeField] SOVoidEvent _OnPlayEvent;
+
         void OnEnable()
         {
             ActionQuiz.OnAnswerCorrect += UpdateAnswerCorrect;
-            QuizStateManager.OnUpdateGameState += OnUpdateGameState;
+            _OnPlayEvent.RegisterListener(this);
         }
 
         void OnDisable()
         {
             ActionQuiz.OnAnswerCorrect -= UpdateAnswerCorrect;
-            QuizStateManager.OnUpdateGameState -= OnUpdateGameState;
+            _OnPlayEvent.UnregisterListener(this);
         }
 
-        private void OnUpdateGameState(QuizState state)
-        {
-            switch (state)
-            {
-                case QuizState.Playing:
-                    StartQuiz();
-                    break;
-                case QuizState.Finish:
-                    break;
-            }
-        }
+        public void OnEventRaised(Void data) => StartQuiz();
 
         public void StartQuiz()
         {
