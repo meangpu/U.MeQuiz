@@ -15,31 +15,12 @@ namespace Meangpu.QuizExam
         [Header("Event")]
         [SerializeField] SOVoidEvent _eventToRaiseWhenStart;
 
-        void OnEnable()
-        {
-            ActionQuiz.OnStartQuiz += DisableCorrectWrong;
-        }
-        void OnDisable()
-        {
-            ActionQuiz.OnStartQuiz -= DisableCorrectWrong;
-        }
-
         void Start() => _eventToRaiseWhenStart?.Raise();
 
         void SetActive(GameObject obj, bool state)
         {
             if (obj == null) return;
             obj.SetActive(state);
-        }
-
-        private void DisableCorrectWrong(QuizObject @object)
-        {
-            SetActive(_choice, true);
-            SetActive(_question, true);
-            SetActive(_startBtn, false);
-            SetActive(_answerCorrectWrongStatus, false);
-            SetActive(_nextBtn, false);
-            SetActive(_progressUI, true);
         }
 
         public void SetStateOnWaiting()
