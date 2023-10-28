@@ -89,8 +89,8 @@ GameObject:
   - component: {fileID: 5442185689336662089}
   - component: {fileID: 1722396137959024496}
   - component: {fileID: 8951948824679751633}
-  - component: {fileID: 5477686709273468628}
   - component: {fileID: 2372747312987234489}
+  - component: {fileID: 6829073925493682897}
   m_Layer: 5
   m_Name: ChoiceBtn
   m_TagString: Untagged
@@ -222,25 +222,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &5477686709273468628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5181569521558466408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb9a641c54991094ea4503eab8f7f4a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _txt: {fileID: 1779785010872719011}
-  _status: {fileID: 2372747312987234489}
-  _imageShowYouChoose: {fileID: 5442185689336662089}
-  _btn: {fileID: 1722396137959024496}
-  _chooseColor: {r: 0.20392157, g: 0.59607846, b: 0.85882354, a: 1}
-  _OnFinishEvent: {fileID: 11400000, guid: 63de6dc8ef56c2e42a7eefb04f3f19c9, type: 2}
-  _isCorrectAns: 0
 --- !u!114 &2372747312987234489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +245,25 @@ MonoBehaviour:
   _doSetImage: 1
   _doSetText: 0
   _doSetAlphaOnly: 0
+--- !u!114 &6829073925493682897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5181569521558466408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1befa3ef9ba2e458098d0f8ed1178b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _txt: {fileID: 1779785010872719011}
+  _status: {fileID: 2372747312987234489}
+  _imageShowYouChoose: {fileID: 5442185689336662089}
+  _btn: {fileID: 1722396137959024496}
+  _chooseColor: {r: 0.16078432, g: 0.5019608, b: 0.7254902, a: 1}
+  _OnFinishEvent: {fileID: 11400000, guid: 63de6dc8ef56c2e42a7eefb04f3f19c9, type: 2}
+  _isCorrectAns: 0
 --- !u!1 &5306996013521417412
 GameObject:
   m_ObjectHideFlags: 0

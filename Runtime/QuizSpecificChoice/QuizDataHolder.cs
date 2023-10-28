@@ -31,14 +31,14 @@ namespace Meangpu.QuizExam
         void OnEnable()
         {
             _OnPlayingEvent.RegisterListener(this);
-            ActionQuiz.OnAnswerCorrect += UpdateAnswerCorrect;
+            ActionQuiz.OnSpecificAnswerCorrect += UpdateAnswerCorrect;
             ActionQuiz.OnChooseQuizGroup += UpdateQuizGroup;
         }
 
         void OnDisable()
         {
             _OnPlayingEvent.UnregisterListener(this);
-            ActionQuiz.OnAnswerCorrect -= UpdateAnswerCorrect;
+            ActionQuiz.OnSpecificAnswerCorrect -= UpdateAnswerCorrect;
             ActionQuiz.OnChooseQuizGroup -= UpdateQuizGroup;
         }
 

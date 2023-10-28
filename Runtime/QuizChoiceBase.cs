@@ -7,7 +7,7 @@ using Meangpu.SOEvent;
 
 namespace Meangpu.QuizExam
 {
-    public class QuizChoice : MonoBehaviour
+    public abstract class QuizChoiceBase : MonoBehaviour
     {
         [SerializeField] TMP_Text _txt;
         [SerializeField] ButtonUIStatus _status;
@@ -20,19 +20,13 @@ namespace Meangpu.QuizExam
 
         public bool _isCorrectAns;
 
-        void OnEnable() => ActionQuiz.OnAnswerCorrect += OnQuizAnswer;
-        void OnDisable() => ActionQuiz.OnAnswerCorrect -= OnQuizAnswer;
-
-        private void OnQuizAnswer(bool isCorrect)
+        protected void OnQuizAnswer(bool isCorrect)
         {
             _btn.interactable = false;
             if (!isCorrect) DisplayIsAnswerCorrect();
         }
 
-        void Start()
-        {
-            _btn.onClick.AddListener(SelectThisChoice);
-        }
+        void Start() => _btn.onClick.AddListener(SelectThisChoice);
 
         public void SetText(string txt) => _txt.SetText(txt);
 
@@ -51,10 +45,12 @@ namespace Meangpu.QuizExam
             _btn.interactable = false;
         }
 
+        public abstract void InvokeAnswerIsCorrect();
+
         [Button]
         public void SelectThisChoice()
         {
-            ActionQuiz.OnAnswerCorrect?.Invoke(_isCorrectAns);
+            InvokeAnswerIsCorrect();
             _OnFinishEvent?.Raise();
             _imageShowYouChoose.color = _chooseColor;
         }

@@ -8,9 +8,9 @@ namespace Meangpu.QuizExam
     public class QuizChoiceSpawner : MonoBehaviour
     {
         [SerializeField] TMP_Text _questionTxt;
-        [SerializeField] List<QuizChoice> _answerTxt;
+        [SerializeField] List<QuizChoiceSpecific> _answerTxt;
         [SerializeField] Transform _choiceParent;
-        [SerializeField] QuizChoice _quizChoiceTemplate;
+        [SerializeField] QuizChoiceSpecific _quizChoiceTemplate;
 
         void OnEnable()
         {
@@ -30,7 +30,7 @@ namespace Meangpu.QuizExam
         {
             while (_answerTxt.Count < questionCount)
             {
-                QuizChoice newChoice = Instantiate(_quizChoiceTemplate, _choiceParent);
+                QuizChoiceSpecific newChoice = Instantiate(_quizChoiceTemplate, _choiceParent);
                 _answerTxt.Add(newChoice);
             }
         }
@@ -44,7 +44,7 @@ namespace Meangpu.QuizExam
 
             for (var i = 0; i < quizObj.Answers.Count; i++)
             {
-                QuizChoice nowChoice = _answerTxt[i];
+                QuizChoiceBase nowChoice = _answerTxt[i];
                 nowChoice.gameObject.SetActive(true);
                 nowChoice.SetText(quizObj.Answers[i].stringValue);
                 nowChoice.SetIsCorrectAnswer(quizObj.Answers[i].boolValue);

@@ -8,6 +8,7 @@ namespace Meangpu.QuizExam
         public static Action<SOQuizExam> OnChooseQuizGroup;
         public static Action<QuizObject> OnStartQuiz;
         public static Action<SOQuizPoolItem, List<SOQuizPoolItem>> OnStartQuizPool;
-        public static Action<bool> OnAnswerCorrect;
+        public static Action<bool> OnSpecificAnswerCorrect;
+        public static Action<bool> OnPoolAnswerCorrect;
     }
 }

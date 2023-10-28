@@ -25,13 +25,13 @@ namespace Meangpu.QuizExam
 
         void OnEnable()
         {
-            ActionQuiz.OnAnswerCorrect += UpdateAnswerCorrect;
+            ActionQuiz.OnPoolAnswerCorrect += UpdateAnswerCorrect;
             _OnPlayEvent.RegisterListener(this);
         }
 
         void OnDisable()
         {
-            ActionQuiz.OnAnswerCorrect -= UpdateAnswerCorrect;
+            ActionQuiz.OnPoolAnswerCorrect -= UpdateAnswerCorrect;
             _OnPlayEvent.UnregisterListener(this);
         }
 
