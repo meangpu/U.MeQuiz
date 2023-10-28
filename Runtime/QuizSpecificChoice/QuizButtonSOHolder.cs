@@ -6,7 +6,7 @@ namespace Meangpu.QuizExam
 {
     public class QuizButtonSOHolder : MonoBehaviour
     {
-        [SerializeField] SOQuizExam _data;
+        [Expandable][SerializeField] SOQuizExam _data;
         [SerializeField] SOVoidEvent _OnPlayingEvent;
 
         [Button]

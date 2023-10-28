@@ -94,37 +94,25 @@ namespace Meangpu.QuizExam
 
         public QuizObject GetRandomQuiz()
         {
-            if (_quizList.Count == 0) SetupQuizPool();
+            if (_quizList.Count.Equals(0)) SetupQuizPool();
             int indexList = Random.Range(0, _quizList.Count);
             QuizObject nowObj = _quizList[indexList];
             _quizList.RemoveAt(indexList);
             return nowObj;
         }
 
-        public QuizObject GetNextQuiz()
-        {
-            IsQuizIsFinish();
-
-            QuizObject nowObj = _quizList[0];
-            _quizList.RemoveAt(0);
-            return nowObj;
-        }
-
-        private bool IsQuizIsFinish()
-        {
-            if (_quizList.Count == 0)
-            {
-                _OnWaitEvent?.Raise();
-                return true;
-            }
-            return false;
-        }
-
         [Button]
         public void StartNextQuiz()
         {
-            if (IsQuizIsFinish()) return;
-            ActionQuiz.OnStartQuiz?.Invoke(GetNextQuiz());
+            if (_quizList.Count.Equals(0))
+            {
+                _OnWaitEvent?.Raise();
+                return;
+            }
+
+            QuizObject nowObj = _quizList[0];
+            _quizList.RemoveAt(0);
+            ActionQuiz.OnStartQuiz?.Invoke(nowObj);
         }
     }
 }
