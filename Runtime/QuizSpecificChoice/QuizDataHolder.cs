@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using EasyButtons;
 using Meangpu.Audio;
@@ -101,12 +102,18 @@ namespace Meangpu.QuizExam
             return nowObj;
         }
 
+        IEnumerator FinishQuiz()
+        {
+            yield return new WaitForSeconds(0.1f);
+            _OnWaitEvent?.Raise();
+        }
+
         [Button]
         public void StartNextQuiz()
         {
             if (_quizList.Count.Equals(0))
             {
-                _OnWaitEvent?.Raise();
+                StartCoroutine(FinishQuiz());
                 return;
             }
 
