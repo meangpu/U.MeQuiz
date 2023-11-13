@@ -10,5 +10,11 @@ namespace Meangpu.QuizExam
         [TextArea]
         public string Question;
         public List<StringWithBool> Answers;
+
+        public QuizObject(string question, List<StringWithBool> answers)
+        {
+            Question = question;
+            Answers = answers;
+        }
     }
 }
