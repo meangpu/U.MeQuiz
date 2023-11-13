@@ -12,19 +12,19 @@ namespace Meangpu.QuizExam
         [Header("AutoSetup")]
         [TextArea(8, 8)]
         public string QuizLongString;
-        public List<string> ManualCleanUp;
+        [ReadOnly][SerializeField] List<string> CheckQuizSeparateByNewLine;
 
-        [Header("real data")]
+        [Header("REAL DATA")]
         public List<QuizObject> QuestionList = new();
 
 #if UNITY_EDITOR
-
         [Button]
         public void CreateQuizFromString()
         {
             QuestionList.Clear();
             TrimByNewLine();
             UpdateQuizFromString();
+            Debug.Log("Don't forget to tick <color=#4ec9b0>correct</color> one by hand");
         }
 
         public QuizObject CreateQuizData(List<string> QuizList)
@@ -37,6 +37,7 @@ namespace Meangpu.QuizExam
                     answerList.Add(new(QuizList[i], false));
                 }
             }
+            Debug.Log($"ADD: <color=#4ec9b0>{QuizList[0]}</color>");
             return new(QuizList[0], answerList);
         }
 
@@ -45,8 +46,8 @@ namespace Meangpu.QuizExam
             /// <summary>
             /// rules first is question, then all following until new line is answer
             /// </summary>
-            ManualCleanUp = QuizLongString.Split("\r\n").ToList();
-            for (int i = 0, length = ManualCleanUp.Count; i < length; i++) ManualCleanUp[i] = ManualCleanUp[i].Trim();
+            CheckQuizSeparateByNewLine = QuizLongString.Split("\r\n").ToList();
+            for (int i = 0, length = CheckQuizSeparateByNewLine.Count; i < length; i++) CheckQuizSeparateByNewLine[i] = CheckQuizSeparateByNewLine[i].Trim();
         }
 
         private void UpdateQuizFromString()
@@ -54,7 +55,7 @@ namespace Meangpu.QuizExam
             List<string> nowQuizGroup = new();
             int lastQuizSeparatePos = 0;
 
-            for (int i = 0; i < ManualCleanUp.Count; i++)
+            for (int i = 0; i < CheckQuizSeparateByNewLine.Count; i++)
             {
                 if (EndOrFindNewLineQuiz(i))
                 {
@@ -62,7 +63,7 @@ namespace Meangpu.QuizExam
                     for (int j = 0, length = numberOfQuiz; j < length; j++)
                     {
                         int nowIndex = lastQuizSeparatePos + j;
-                        nowQuizGroup.Add(ManualCleanUp[nowIndex]);
+                        nowQuizGroup.Add(CheckQuizSeparateByNewLine[nowIndex]);
                     }
                     nowQuizGroup = nowQuizGroup.Where(stringName => stringName.Trim().Length != 0).ToList();
                     QuestionList.Add(CreateQuizData(nowQuizGroup));
@@ -72,7 +73,7 @@ namespace Meangpu.QuizExam
             }
         }
 
-        private bool EndOrFindNewLineQuiz(int i) => ManualCleanUp[i].Trim().Length == 0 || i == ManualCleanUp.Count;
+        private bool EndOrFindNewLineQuiz(int i) => CheckQuizSeparateByNewLine[i].Trim().Length == 0 || i == CheckQuizSeparateByNewLine.Count;
 
 #endif
     }
