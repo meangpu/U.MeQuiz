@@ -24,7 +24,7 @@ namespace Meangpu.QuizExam
             QuestionList.Clear();
             TrimByNewLine();
             UpdateQuizFromString();
-            Debug.Log("Don't forget to tick <color=#4ec9b0>correct</color> one by hand");
+            Debug.Log("Don't forget to tick <color=#4ec9b0>CORRECT</color> one by hand");
         }
 
         public QuizObject CreateQuizData(List<string> QuizList)
