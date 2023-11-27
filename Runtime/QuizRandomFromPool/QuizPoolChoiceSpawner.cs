@@ -39,7 +39,7 @@ namespace Meangpu.QuizExam
         }
 
         [Button]
-        private void SpawnQuizObject(SOQuizPoolItem question, List<SOQuizPoolItem> choice)
+        public virtual void SpawnQuizObject(SOQuizPoolItem question, List<SOQuizPoolItem> choice)
         {
             _questionTxt.SetText(question.Question);
 
