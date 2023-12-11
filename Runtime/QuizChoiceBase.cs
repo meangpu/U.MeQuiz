@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using Meangpu.Util;
 using UnityEngine.UI;
-using EasyButtons;
+using VInspector;
 using Meangpu.SOEvent;
 
 namespace Meangpu.QuizExam
