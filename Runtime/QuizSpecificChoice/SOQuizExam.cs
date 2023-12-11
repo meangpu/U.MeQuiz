@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using EasyButtons;
+using VInspector;
 using Meangpu.Datatype;
 using UnityEngine;
 
