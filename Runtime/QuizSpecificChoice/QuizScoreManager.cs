@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Meangpu.QuizExam
@@ -15,7 +16,11 @@ namespace Meangpu.QuizExam
         [SerializeField] TMP_Text _finMaxScore;
         [SerializeField] string _finMaxScoreStartWord = "out of";
 
+        [SerializeField] UnityEvent _OnGetMaxScore;
+        [SerializeField] UnityEvent _ResetMaxScoreEvent;
+
         int _score;
+        int _maxScore;
         int _nowQuizIndex;
 
         void OnEnable() => ActionQuiz.OnSpecificAnswerCorrect += UpdateAnswerCorrect;
@@ -28,6 +33,13 @@ namespace Meangpu.QuizExam
             _nowQuizIndex++;
             UpdateNowScoreUI();
             UpdateProgressUI();
+            CheckIfGotMaxScore();
+        }
+
+        void CheckIfGotMaxScore()
+        {
+            if (_score != _maxScore) return;
+            _OnGetMaxScore?.Invoke();
         }
 
         void UpdateNowScoreUI()
@@ -42,13 +54,16 @@ namespace Meangpu.QuizExam
         {
             _score = 0;
             _nowQuizIndex = 0;
+            _maxScore = _quizData.QuestionList.Count;
+            _ResetMaxScoreEvent?.Invoke();
 
             if (_uiSlider == null) return;
             _uiSlider.value = 0;
-            _uiSlider.maxValue = _quizData.QuestionList.Count;
+            _uiSlider.maxValue = _maxScore;
+
             _scoreNow.SetText("0");
-            _scoreMax.SetText($"/{_quizData.QuestionList.Count}");
-            _finMaxScore.SetText($"{_finMaxScoreStartWord} {_quizData.QuestionList.Count}");
+            _scoreMax.SetText($"/{_maxScore}");
+            _finMaxScore.SetText($"{_finMaxScoreStartWord} {_maxScore}");
         }
 
         void UpdateProgressUI()

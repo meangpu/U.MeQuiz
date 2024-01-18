@@ -1,6 +1,6 @@
-using System;
 using Meangpu.SOEvent;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Meangpu.QuizExam
 {
@@ -16,6 +16,11 @@ namespace Meangpu.QuizExam
         [SerializeField] GameObject _scoreSummary;
         [Header("Event")]
         [SerializeField] SOVoidEvent _eventToRaiseWhenStart;
+        [Header("Event On Start New state")]
+        [SerializeField] UnityEvent _OnWaitingEvent;
+        [SerializeField] UnityEvent _OnPlayingEvent;
+        [SerializeField] UnityEvent _OnFinishChooseAnsEvent;
+        [SerializeField] UnityEvent _OnNoMoreQuizShowSummaryEvent;
 
         void OnEnable() => ActionQuiz.OnNoMoreQuizToPlay += SetShowSummary;
         void OnDisable() => ActionQuiz.OnNoMoreQuizToPlay -= SetShowSummary;
@@ -32,6 +37,7 @@ namespace Meangpu.QuizExam
         {
             SetActive(_scoreSummary, true);
             SetActive(_startBtn, false);
+            _OnNoMoreQuizShowSummaryEvent?.Invoke();
         }
 
         public void SetStateOnWaiting()
@@ -43,6 +49,7 @@ namespace Meangpu.QuizExam
             SetActive(_nextBtn, false);
             SetActive(_progressUI, false);
             SetActive(_scoreSummary, false);
+            _OnWaitingEvent?.Invoke();
         }
         public void SetStateOnPlaying()
         {
@@ -53,6 +60,7 @@ namespace Meangpu.QuizExam
             SetActive(_nextBtn, false);
             SetActive(_progressUI, true);
             SetActive(_scoreSummary, false);
+            _OnPlayingEvent?.Invoke();
         }
         public void SetStateOnFinish()
         {
@@ -63,6 +71,7 @@ namespace Meangpu.QuizExam
             SetActive(_nextBtn, true);
             SetActive(_progressUI, true);
             SetActive(_scoreSummary, false);
+            _OnFinishChooseAnsEvent?.Invoke();
         }
     }
 }
