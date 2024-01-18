@@ -22,6 +22,10 @@ namespace Meangpu.QuizExam
         [SerializeField] SOVoidEvent _OnPlayingEvent;
         [SerializeField] QuizScoreManager _scoreScpt;
 
+        [Header("KeyCode")]
+        // need to manual press start at first then use this key to go next quiz
+        [SerializeField] KeyCode _nextQuizKey = KeyCode.Space;
+
         public void OnEventRaised(Void data) => StartNextQuiz();
         public void DoStartGame() => _OnPlayingEvent?.Raise();
 
@@ -37,6 +41,11 @@ namespace Meangpu.QuizExam
             _OnPlayingEvent.UnregisterListener(this);
             ActionQuiz.OnSpecificAnswerCorrect -= UpdateAnswerCorrect;
             ActionQuiz.OnChooseNewQuizGroup -= UpdateQuizGroup;
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(_nextQuizKey)) DoStartGame();
         }
 
         public void UpdateQuizGroup(SOQuizExam exam)
