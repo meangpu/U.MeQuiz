@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using EasyButtons;
+using VInspector;
 using Meangpu.Audio;
 using Meangpu.SOEvent;
 using Meangpu.Util;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,37 +17,44 @@ namespace Meangpu.QuizExam
         [Header("audio")]
         [SerializeField] SOSound _correctSound;
         [SerializeField] SOSound _wrongSound;
-        [Header("progress")]
-        [SerializeField] Slider _uiSlider;
-        [SerializeField] TMP_Text _scoreNow;
-        [SerializeField] TMP_Text _scoreMax;
-        int _score;
         [Header("Event")]
         [SerializeField] SOVoidEvent _OnWaitEvent;
         [SerializeField] SOVoidEvent _OnPlayingEvent;
+        [SerializeField] QuizScoreManager _scoreScpt;
 
         public void OnEventRaised(Void data) => StartNextQuiz();
+        public void DoStartGame() => _OnPlayingEvent?.Raise();
 
         void OnEnable()
         {
             _OnPlayingEvent.RegisterListener(this);
             ActionQuiz.OnSpecificAnswerCorrect += UpdateAnswerCorrect;
-            ActionQuiz.OnChooseQuizGroup += UpdateQuizGroup;
+            ActionQuiz.OnChooseNewQuizGroup += UpdateQuizGroup;
         }
 
         void OnDisable()
         {
             _OnPlayingEvent.UnregisterListener(this);
             ActionQuiz.OnSpecificAnswerCorrect -= UpdateAnswerCorrect;
-            ActionQuiz.OnChooseQuizGroup -= UpdateQuizGroup;
+            ActionQuiz.OnChooseNewQuizGroup -= UpdateQuizGroup;
         }
 
-        private void UpdateQuizGroup(SOQuizExam exam)
+        public void UpdateQuizGroup(SOQuizExam exam)
         {
             _data = exam;
+            InitNowHoldingQuiz();
+        }
+
+        private void InitNowHoldingQuiz()
+        {
             SetupQuizPool();
-            _score = 0;
-            SetupUI(_data);
+            _scoreScpt.InitScoreAndUI(_data);
+        }
+
+        public void StartGameWithCurrentQuizGroup()
+        {
+            InitNowHoldingQuiz();
+            DoStartGame();
         }
 
         private void UpdateAnswerCorrect(bool isAnswerCorrect)
@@ -58,40 +64,14 @@ namespace Meangpu.QuizExam
             if (isAnswerCorrect)
             {
                 _correctSound?.PlayOneShot();
-                _score++;
-                UpdateNowScoreUI();
-                UpdateProgressUI();
             }
             else
             {
                 _wrongSound?.PlayOneShot();
-                UpdateNowScoreUI();
-                UpdateProgressUI();
             }
         }
 
         private void SetupQuizPool() => _quizList = new(_data.QuestionList);
-
-        void UpdateNowScoreUI()
-        {
-            if (_scoreNow == null) return;
-            _scoreNow.SetText(_score.ToString());
-        }
-
-        void SetupUI(SOQuizExam _quizData)
-        {
-            if (_uiSlider == null) return;
-            _uiSlider.value = 0;
-            _uiSlider.maxValue = _quizData.QuestionList.Count;
-            _scoreNow.SetText("0");
-            _scoreMax.SetText($"/{_quizData.QuestionList.Count}");
-        }
-
-        void UpdateProgressUI()
-        {
-            if (_uiSlider == null) return;
-            _uiSlider.value = _data.QuestionList.Count - _quizList.Count;
-        }
 
         public QuizObject GetRandomQuiz()
         {
@@ -106,6 +86,7 @@ namespace Meangpu.QuizExam
         {
             yield return new WaitForSeconds(0.1f);
             _OnWaitEvent?.Raise();
+            ActionQuiz.OnNoMoreQuizToPlay?.Invoke();
         }
 
         [Button]

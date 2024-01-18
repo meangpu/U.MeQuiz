@@ -1,3 +1,4 @@
+using System;
 using Meangpu.SOEvent;
 using UnityEngine;
 
@@ -12,8 +13,12 @@ namespace Meangpu.QuizExam
         [SerializeField] GameObject _answerCorrectWrongStatus;
         [SerializeField] GameObject _nextBtn;
         [SerializeField] GameObject _progressUI;
+        [SerializeField] GameObject _scoreSummary;
         [Header("Event")]
         [SerializeField] SOVoidEvent _eventToRaiseWhenStart;
+
+        void OnEnable() => ActionQuiz.OnNoMoreQuizToPlay += SetShowSummary;
+        void OnDisable() => ActionQuiz.OnNoMoreQuizToPlay -= SetShowSummary;
 
         void Start() => _eventToRaiseWhenStart?.Raise();
 
@@ -21,6 +26,12 @@ namespace Meangpu.QuizExam
         {
             if (obj == null) return;
             obj.SetActive(state);
+        }
+
+        private void SetShowSummary()
+        {
+            SetActive(_scoreSummary, true);
+            SetActive(_startBtn, false);
         }
 
         public void SetStateOnWaiting()
@@ -31,6 +42,7 @@ namespace Meangpu.QuizExam
             SetActive(_answerCorrectWrongStatus, false);
             SetActive(_nextBtn, false);
             SetActive(_progressUI, false);
+            SetActive(_scoreSummary, false);
         }
         public void SetStateOnPlaying()
         {
@@ -40,6 +52,7 @@ namespace Meangpu.QuizExam
             SetActive(_answerCorrectWrongStatus, false);
             SetActive(_nextBtn, false);
             SetActive(_progressUI, true);
+            SetActive(_scoreSummary, false);
         }
         public void SetStateOnFinish()
         {
@@ -49,6 +62,7 @@ namespace Meangpu.QuizExam
             SetActive(_answerCorrectWrongStatus, true);
             SetActive(_nextBtn, true);
             SetActive(_progressUI, true);
+            SetActive(_scoreSummary, false);
         }
     }
 }
