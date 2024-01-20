@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
-using EasyButtons;
+using VInspector;
 using Meangpu.Util;
 
 namespace Meangpu.QuizExam

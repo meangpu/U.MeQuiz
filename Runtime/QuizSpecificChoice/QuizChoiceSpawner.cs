@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using EasyButtons;
+using VInspector;
 using TMPro;
 using UnityEngine;
 
