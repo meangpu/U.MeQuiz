@@ -30,6 +30,7 @@ namespace Meangpu.QuizExam
         [Header("QuizDisplayData")]
         [SerializeField] TMP_Text _quizNameHeader;
         [SerializeField] TMP_Text _quizPassage;
+        [SerializeField] GameObject _passageParentToDisableIfEmpty;
 
         public void OnEventRaised(Void data) => StartNextQuiz();
         public void DoStartGame() => _OnPlayingEvent?.Raise();
@@ -77,6 +78,15 @@ namespace Meangpu.QuizExam
             SetupQuizPool();
             _scoreScpt.InitScoreAndUI(_data);
             UpdateTmpIfNotNull(_quizNameHeader, _data.name);
+
+            if (string.IsNullOrEmpty(_data.QuizPassage))
+            {
+                _passageParentToDisableIfEmpty.SetActive(false);
+                return;
+            }
+
+
+            _passageParentToDisableIfEmpty.SetActive(true);
             UpdateTmpIfNotNull(_quizPassage, _data.QuizPassage);
         }
 
