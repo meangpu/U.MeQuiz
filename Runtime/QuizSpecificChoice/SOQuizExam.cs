@@ -10,6 +10,7 @@ namespace Meangpu.QuizExam
     public class SOQuizExam : ScriptableObject
     {
         [Header("Optional")]
+        [TextArea(2, 2)] public string QuizInstruction;
         [TextArea(3, 3)] public string QuizPassage;
         [Header("AutoSetup")]
         [TextArea(8, 8)]
