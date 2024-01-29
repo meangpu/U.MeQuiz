@@ -6,6 +6,7 @@ using Meangpu.SOEvent;
 using Meangpu.Util;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Meangpu.QuizExam
 {
@@ -26,6 +27,10 @@ namespace Meangpu.QuizExam
         // need to manual press start at first then use this key to go next quiz
         [SerializeField] KeyCode _nextQuizKey = KeyCode.Space;
 
+        [Header("QuizDisplayData")]
+        [SerializeField] TMP_Text _quizNameHeader;
+        [SerializeField] TMP_Text _quizPassage;
+
         public void OnEventRaised(Void data) => StartNextQuiz();
         public void DoStartGame() => _OnPlayingEvent?.Raise();
 
@@ -43,6 +48,14 @@ namespace Meangpu.QuizExam
             ActionQuiz.OnChooseNewQuizGroup -= UpdateQuizGroup;
         }
 
+        private void Start() => InitNowHoldingQuiz();
+
+        void UpdateTmpIfNotNull(TMP_Text tmp, string str)
+        {
+            if (tmp == null || string.IsNullOrEmpty(str)) return;
+            tmp.SetText(str);
+        }
+
         void Update()
         {
             if (Input.GetKeyDown(_nextQuizKey)) DoStartGame();
@@ -56,8 +69,15 @@ namespace Meangpu.QuizExam
 
         private void InitNowHoldingQuiz()
         {
+            if (_data == null)
+            {
+                Debug.Log("No current quiz group DATA!!");
+                return;
+            }
             SetupQuizPool();
             _scoreScpt.InitScoreAndUI(_data);
+            UpdateTmpIfNotNull(_quizNameHeader, _data.name);
+            UpdateTmpIfNotNull(_quizPassage, _data.QuizPassage);
         }
 
         public void StartGameWithCurrentQuizGroup()

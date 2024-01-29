@@ -9,6 +9,8 @@ namespace Meangpu.QuizExam
     [CreateAssetMenu(menuName = "Meangpu/SOQuiz/QuizExam")]
     public class SOQuizExam : ScriptableObject
     {
+        [Header("Optional")]
+        [TextArea(3, 3)] public string QuizPassage;
         [Header("AutoSetup")]
         [TextArea(8, 8)]
         public string QuizLongString;
@@ -16,6 +18,9 @@ namespace Meangpu.QuizExam
 
         [Header("REAL DATA")]
         public List<QuizObject> QuestionList = new();
+
+
+        public void UpdateQuizToThisDataGroup() => ActionQuiz.OnChooseNewQuizGroup?.Invoke(this);
 
 #if UNITY_EDITOR
         [Button]
