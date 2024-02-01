@@ -30,10 +30,8 @@ namespace Meangpu.QuizExam
 
         public void UpdateQuizToThisDataGroup() => ActionQuiz.OnChooseNewQuizGroup?.Invoke(this);
 
-#if UNITY_EDITOR
-
         [Button] public void LoadTextAssetToPassage() => QuizPassage = QuizPassageText.ToString();
-
+#if UNITY_EDITOR
         [Button]
         public void CreateQuizFromString()
         {
