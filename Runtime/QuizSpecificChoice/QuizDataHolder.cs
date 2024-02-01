@@ -83,6 +83,8 @@ namespace Meangpu.QuizExam
             UpdateTmpIfNotNull(_quizInstruction, _data.QuizInstruction);
 
             SetTextActiveByContext(_quizInstruction, _data.QuizInstruction, _quizInstruction.gameObject);
+
+            if (_data.IsUsedTextAsset) _data.LoadTextAssetToPassage();
             SetTextActiveByContext(_quizPassage, _data.QuizPassage, _passageParentToDisableIfEmpty);
 
         }

@@ -11,7 +11,14 @@ namespace Meangpu.QuizExam
     {
         [Header("Optional")]
         [TextArea(2, 2)] public string QuizInstruction;
-        [TextArea(3, 3)] public string QuizPassage;
+        [Header("TextLoader")]
+
+        public bool IsUsedTextAsset = true;
+        [ShowIf("IsUsedTextAsset")]
+        public TextAsset QuizPassageText;
+        [EndIf]
+        [TextArea(5, 5)] public string QuizPassage;
+
         [Header("AutoSetup")]
         [TextArea(8, 8)]
         public string QuizLongString;
@@ -24,6 +31,9 @@ namespace Meangpu.QuizExam
         public void UpdateQuizToThisDataGroup() => ActionQuiz.OnChooseNewQuizGroup?.Invoke(this);
 
 #if UNITY_EDITOR
+
+        [Button] public void LoadTextAssetToPassage() => QuizPassage = QuizPassageText.ToString();
+
         [Button]
         public void CreateQuizFromString()
         {
