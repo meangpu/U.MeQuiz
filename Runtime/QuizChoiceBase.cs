@@ -18,6 +18,12 @@ namespace Meangpu.QuizExam
         [Header("Event")]
         [SerializeField] SOVoidEvent _OnFinishEvent;
 
+        [Header("If choose correct")]
+        [SerializeField] bool _overrideSelectColorWithCorrectAnswerColorIfCorrect;
+        [ShowIf("_overrideSelectColorWithCorrectAnswerColorIfCorrect")]
+        [SerializeField] Color _chooseAndCorrectAnswer;
+        [EndIf]
+
         public bool _isCorrectAns;
 
         protected void OnQuizAnswer(bool isCorrect)
@@ -53,6 +59,7 @@ namespace Meangpu.QuizExam
             InvokeAnswerIsCorrect();
             _OnFinishEvent?.Raise();
             _imageShowYouChoose.color = _chooseColor;
+            if (_isCorrectAns && _overrideSelectColorWithCorrectAnswerColorIfCorrect) _imageShowYouChoose.color = _chooseAndCorrectAnswer;
         }
     }
 }

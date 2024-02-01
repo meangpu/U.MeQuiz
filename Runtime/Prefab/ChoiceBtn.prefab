@@ -245,6 +245,12 @@ MonoBehaviour:
   _doSetImage: 1
   _doSetText: 0
   _doSetAlphaOnly: 0
+  _onOnEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onOffEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6829073925493682897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +269,8 @@ MonoBehaviour:
   _btn: {fileID: 1722396137959024496}
   _chooseColor: {r: 0.16078432, g: 0.5019608, b: 0.7254902, a: 1}
   _OnFinishEvent: {fileID: 11400000, guid: 63de6dc8ef56c2e42a7eefb04f3f19c9, type: 2}
+  _overrideSelectColorWithCorrectAnswerColorIfCorrect: 1
+  _chooseAndCorrectAnswer: {r: 0.15294118, g: 0.68235296, b: 0.3764706, a: 1}
   _isCorrectAns: 0
 --- !u!1 &5306996013521417412
 GameObject:
